@@ -54,9 +54,9 @@ const Coverage = () => {
           </label>
         </form>
       </div>
-      <div className="h-[800px] w-full">
+      <div className="h-200 w-full">
         <MapContainer
-          className="h-[800px]"
+          className="h-200"
           center={center}
           zoom={8}
           ref={mapRef}
