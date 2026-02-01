@@ -2,24 +2,52 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
+import axios from "axios";
 
 const Register = () => {
-  const { registerUser } = useAuth();
+  const { registerUser, updateUserProfile } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+    console.log(data);
     const email = data.email;
     const password = data.password;
+    const profileImg = data.photo[0];
     registerUser(email, password)
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        const formData = new FormData();
+        formData.append("image", profileImg);
+        const imageApiUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY}`;
+        axios
+          .post(imageApiUrl, formData)
+          .then((res) => {
+            console.log(res);
+            const updateProfile = {
+              displayName: data.name,
+              photoURL: res.data.data.url,
+            };
+            updateUserProfile(updateProfile)
+              .then(() => console.log("Profile updated done"))
+              .catch((e) => console.log(e));
+          })
+          .catch((e) => console.log(e));
+      })
       .catch((e) => console.log(e));
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <fieldset className="fieldset">
+        <label className="label">Name</label>
+        <input
+          type="text"
+          {...register("name", { required: true })}
+          className="input"
+          placeholder="Name"
+        />
         <label className="label">Email</label>
         <input
           type="email"
@@ -43,6 +71,8 @@ const Register = () => {
         {errors.password?.type === "minLength" && (
           <p className="text-red-500">Password must be 6 character.</p>
         )}
+        <label className="label">Profile Photo</label>
+        <input type="file" className="file-input" {...register("photo")} />
         <div>
           <a className="link link-hover">Forgot password?</a>
         </div>
