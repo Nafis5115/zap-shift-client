@@ -1,6 +1,12 @@
 import React from "react";
+import { Link } from "react-router";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logout, loading } = useAuth();
+  const handleLogout = async () => {
+    await logout();
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -71,7 +77,19 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {!loading ? (
+          user ? (
+            <button onClick={handleLogout} className="btn">
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="btn">
+              Login
+            </Link>
+          )
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );
