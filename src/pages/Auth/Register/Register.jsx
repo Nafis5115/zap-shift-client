@@ -1,14 +1,20 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
 
 const Register = () => {
+  const { registerUser } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+    registerUser(email, password)
+      .then((result) => console.log(result))
+      .catch((e) => console.log(e));
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,7 +45,7 @@ const Register = () => {
         <div>
           <a className="link link-hover">Forgot password?</a>
         </div>
-        <button className="btn btn-neutral mt-4">Login</button>
+        <button className="btn btn-neutral mt-4">Register</button>
       </fieldset>
     </form>
   );
