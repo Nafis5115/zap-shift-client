@@ -2,6 +2,7 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const regionData = useLoaderData();
@@ -9,7 +10,7 @@ const SendParcel = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
   const duplicateRegions = regionData.map((r) => r.region);
   const regions = Array(...new Set(duplicateRegions));
@@ -20,6 +21,7 @@ const SendParcel = () => {
     const districts = regionDistricts.map((d) => d.district);
     return districts;
   };
+  const axiosSecure = useAxiosSecure();
 
   const handleSendParcel = (data) => {
     console.log(data);
@@ -42,7 +44,6 @@ const SendParcel = () => {
         cost = minCharge + extraCharge;
       }
     }
-    console.log(cost);
 
     Swal.fire({
       title: "Agree with the cost?",
@@ -54,11 +55,16 @@ const SendParcel = () => {
       confirmButtonText: "I agree!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
+        data.deliveryCost = cost;
+        axiosSecure
+          .post("/create-parcel", data)
+          .then((data) => console.log(data.data))
+          .catch((e) => console.log(e));
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Your file has been deleted.",
+        //   icon: "success",
+        // });
       }
     });
   };
@@ -127,6 +133,15 @@ const SendParcel = () => {
               />
             </div>
             <div className="fieldset">
+              <label className="label">Sender Email</label>
+              <input
+                {...register("senderEmail")}
+                type="email"
+                className="input w-full"
+                placeholder="Sender Email"
+              />
+            </div>
+            <div className="fieldset">
               <label className="label">Address</label>
               <input
                 {...register("senderAddress")}
@@ -186,6 +201,15 @@ const SendParcel = () => {
                 type="text"
                 className="input w-full"
                 placeholder="Receiver Name"
+              />
+            </div>
+            <div className="fieldset">
+              <label className="label">Receiver Email</label>
+              <input
+                {...register("receiverEmail")}
+                type="email"
+                className="input w-full"
+                placeholder="Receiver Email"
               />
             </div>
             <div className="fieldset">
