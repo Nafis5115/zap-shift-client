@@ -13,8 +13,27 @@ const Payment = () => {
       return res.data;
     },
   });
+  const handlePayment = async () => {
+    const paymentInfo = {
+      deliveryCost: parcel.deliveryCost,
+      parcelId: parcel.parcelId,
+      senderEmail: parcel.senderEmail,
+      parcelName: parcel.parcelName,
+    };
+
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    console.log(res.data);
+    window.location.href = res.data.url;
+  };
   if (isLoading) return <h1>Loading...</h1>;
-  return <div>{parcel.parcelName}</div>;
+  return (
+    <div>
+      <h1>{parcel.parcelName}</h1>
+      <button onClick={handlePayment} className="btn btn-primary text-black">
+        Pay
+      </button>
+    </div>
+  );
 };
 
 export default Payment;
