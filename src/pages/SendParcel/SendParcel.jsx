@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const regionData = useLoaderData();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -58,7 +59,19 @@ const SendParcel = () => {
         data.deliveryCost = cost;
         axiosSecure
           .post("/create-parcel", data)
-          .then((data) => console.log(data.data))
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Parcel has created, Please Pay.",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/dashboard/my-parcels");
+            }
+          })
           .catch((e) => console.log(e));
         // Swal.fire({
         //   title: "Deleted!",
