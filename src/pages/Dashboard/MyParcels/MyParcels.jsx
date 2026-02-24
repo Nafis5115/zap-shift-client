@@ -37,12 +37,16 @@ const MyParcels = () => {
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.receiverEmail}</td>
                 <td>
-                  <Link
-                    to={`/dashboard/payment/${parcel._id}`}
-                    className="btn btn-primary text-black"
-                  >
-                    {parcel.paymentStatus === "paid" ? "Paid" : "Pay now"}
-                  </Link>
+                  {parcel.paymentStatus === "paid" ? (
+                    "Paid"
+                  ) : (
+                    <Link
+                      to={`/dashboard/payment/${parcel._id}`}
+                      className="btn btn-primary text-black"
+                    >
+                      Pay now
+                    </Link>
+                  )}
                 </td>
                 <td>{parcel.deliveryCost}</td>
                 <td>

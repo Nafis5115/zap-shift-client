@@ -13,10 +13,11 @@ const Payment = () => {
       return res.data;
     },
   });
+
   const handlePayment = async () => {
     const paymentInfo = {
       deliveryCost: parcel.deliveryCost,
-      parcelId: parcel.parcelId,
+      parcelId: parcel._id,
       senderEmail: parcel.senderEmail,
       parcelName: parcel.parcelName,
     };
