@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Register = () => {
   const { registerUser, updateUserProfile } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -16,9 +18,9 @@ const Register = () => {
     const email = data.email;
     const password = data.password;
     const profileImg = data.photo[0];
+    const name = data.name;
     registerUser(email, password)
       .then((result) => {
-        console.log(result);
         const formData = new FormData();
         formData.append("image", profileImg);
         const imageApiUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY}`;
@@ -27,11 +29,21 @@ const Register = () => {
           .then((res) => {
             console.log(res);
             const updateProfile = {
-              displayName: data.name,
+              displayName: name,
               photoURL: res.data.data.url,
             };
             updateUserProfile(updateProfile)
-              .then(() => console.log("Profile updated done"))
+              .then(() => {
+                console.log("Profile updated done");
+                axiosSecure
+                  .post("/create-user", {
+                    name: name,
+                    email: result.user.email,
+                    role: "user",
+                  })
+                  .then((res) => console.log(res.data))
+                  .catch((e) => console.log(e));
+              })
               .catch((e) => console.log(e));
           })
           .catch((e) => console.log(e));
