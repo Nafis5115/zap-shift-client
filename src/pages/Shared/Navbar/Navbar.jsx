@@ -72,6 +72,9 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
+        <Link to="/rider" className="btn btn-primary mr-2 text-black">
+          Be A Rider
+        </Link>
         {!loading ? (
           user ? (
             <button onClick={handleLogout} className="btn">

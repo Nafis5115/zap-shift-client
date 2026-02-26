@@ -13,6 +13,7 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import Rider from "../pages/Rider/Rider";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,13 @@ const router = createBrowserRouter([
       {
         path: "send-parcel",
         Component: SendParcel,
+        loader: async () => {
+          return fetch("warehouses.json").then((res) => res.json());
+        },
+      },
+      {
+        path: "rider",
+        Component: Rider,
         loader: async () => {
           return fetch("warehouses.json").then((res) => res.json());
         },
