@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBoxOpen, FaCreditCard } from "react-icons/fa";
+import { FaBoxOpen, FaCreditCard, FaUsers } from "react-icons/fa";
 import { RiEBike2Fill } from "react-icons/ri";
 import { NavLink, Outlet } from "react-router";
 
@@ -106,6 +106,19 @@ const DashboardLayout = () => {
                 <RiEBike2Fill size={18} />
 
                 <span className="is-drawer-close:hidden">Approve Riders</span>
+              </NavLink>
+            </li>
+
+            {/* List item */}
+            <li>
+              <NavLink
+                to={"/dashboard/user-management"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="User Management"
+              >
+                <FaUsers size={18} />
+
+                <span className="is-drawer-close:hidden">User Management</span>
               </NavLink>
             </li>
           </ul>
