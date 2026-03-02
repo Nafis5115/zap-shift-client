@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useRef, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AssignRiders = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedParcel, setSelectedParcel] = useState({});
-  const { data: parcels = [] } = useQuery({
+  const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
     queryKey: ["parcels", "pending-pickup"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -40,7 +41,21 @@ const AssignRiders = () => {
       parcelId: selectedParcel._id,
     };
 
-    axiosSecure.patch(``, riderAssignInfo);
+    axiosSecure
+      .patch(`/assign-parcel/${selectedParcel._id}`, riderAssignInfo)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          riderModalRef.current.close();
+          parcelsRefetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            showConfirmButton: false,
+            title: `Rider has been assigned`,
+            timer: 2000,
+          });
+        }
+      });
   };
   return (
     <div>
@@ -68,7 +83,7 @@ const AssignRiders = () => {
                     onClick={() => openRiderModal(parcel)}
                     className="btn btn-primary text-black"
                   >
-                    Assign Rider
+                    Find Riders
                   </button>
                 </td>
               </tr>
@@ -105,7 +120,7 @@ const AssignRiders = () => {
                         onClick={() => handleAssignRider(rider)}
                         className="btn btn-primary text-black"
                       >
-                        Assign Rider
+                        Assign
                       </button>
                     </td>
                   </tr>
