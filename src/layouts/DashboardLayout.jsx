@@ -6,7 +6,7 @@ import useRole from "../hooks/useRole";
 import useAuth from "../hooks/useAuth";
 
 const DashboardLayout = () => {
-  const { role, isLoading } = useRole();
+  const { role, roleLoading } = useRole();
   const { user } = useAuth();
 
   return (
@@ -94,13 +94,12 @@ const DashboardLayout = () => {
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Payment history"
               >
-                {/* Home icon */}
                 <FaCreditCard size={18} />
 
                 <span className="is-drawer-close:hidden">My Parcels</span>
               </NavLink>
             </li>
-            {user && !isLoading && role === "admin" && (
+            {user && !roleLoading && role === "admin" && (
               <>
                 <li>
                   <NavLink
