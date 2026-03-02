@@ -1,9 +1,10 @@
 import React from "react";
 import { FaBoxOpen, FaCreditCard, FaUsers } from "react-icons/fa";
-import { RiEBike2Fill } from "react-icons/ri";
+import { RiEBike2Fill, RiEBike2Line } from "react-icons/ri";
 import { NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import useAuth from "../hooks/useAuth";
+import { VscPersonAdd } from "react-icons/vsc";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -124,6 +125,19 @@ const DashboardLayout = () => {
 
                     <span className="is-drawer-close:hidden">
                       User Management
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"/dashboard/assign-riders"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign Riders"
+                  >
+                    <VscPersonAdd size={18} />
+
+                    <span className="is-drawer-close:hidden">
+                      Assign Riders
                     </span>
                   </NavLink>
                 </li>

@@ -27,6 +27,7 @@ const MyParcels = () => {
               <th>Receiver Email</th>
               <th>Payment</th>
               <th>Cost</th>
+              <th>Delivery Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -49,6 +50,7 @@ const MyParcels = () => {
                   )}
                 </td>
                 <td>{parcel.deliveryCost}</td>
+                <td>{parcel.deliveryStatus}</td>
                 <td>
                   <div className="flex gap-4">
                     <button className="btn btn-info text-black">View</button>
