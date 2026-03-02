@@ -18,6 +18,7 @@ import ApproveRiders from "../pages/Dashboard/ApproveRiders/ApproveRiders";
 import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
 import AdminRoutes from "./AdminRoutes";
 import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
+import AssignedParcels from "../pages/Dashboard/AssignedParcels/AssignedParcels";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
       {
         path: "assign-riders",
         element: <AssignRiders></AssignRiders>,
+      },
+      {
+        path: "assigned-parcels",
+        element: <AssignedParcels></AssignedParcels>,
       },
     ],
   },

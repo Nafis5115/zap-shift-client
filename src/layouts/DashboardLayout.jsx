@@ -5,6 +5,7 @@ import { NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import useAuth from "../hooks/useAuth";
 import { VscPersonAdd } from "react-icons/vsc";
+import { GrTask } from "react-icons/gr";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -100,6 +101,25 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">My Parcels</span>
               </NavLink>
             </li>
+
+            {user && !roleLoading && role === "rider" && (
+              <>
+                <li>
+                  <NavLink
+                    to={"/dashboard/assigned-parcels"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assigned Parcels"
+                  >
+                    <GrTask size={18} />
+
+                    <span className="is-drawer-close:hidden">
+                      Assigned Parcels
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+
             {user && !roleLoading && role === "admin" && (
               <>
                 <li>
