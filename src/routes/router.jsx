@@ -19,6 +19,7 @@ import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
 import AdminRoutes from "./AdminRoutes";
 import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
 import AssignedParcels from "../pages/Dashboard/AssignedParcels/AssignedParcels";
+import RiderRoutes from "./RiderRoutes";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +88,7 @@ const router = createBrowserRouter([
         path: "payment-history",
         Component: PaymentHistory,
       },
+      //Admin only routes
       {
         path: "approve-riders",
         element: (
@@ -103,9 +105,16 @@ const router = createBrowserRouter([
         path: "assign-riders",
         element: <AssignRiders></AssignRiders>,
       },
+
+      //Rider only routes
+
       {
         path: "assigned-parcels",
-        element: <AssignedParcels></AssignedParcels>,
+        element: (
+          <RiderRoutes>
+            <AssignedParcels></AssignedParcels>
+          </RiderRoutes>
+        ),
       },
     ],
   },

@@ -4,10 +4,11 @@ import useAuth from "../hooks/useAuth";
 import useRole from "../hooks/useRole";
 
 const RiderRoutes = ({ children }) => {
-  const { loading } = useAuth();
+  const { loading, user } = useAuth();
+
   const { role, roleLoading } = useRole();
 
-  if (loading || roleLoading) {
+  if (loading || !user || roleLoading) {
     return <h1>Loading...</h1>;
   }
 
