@@ -20,6 +20,7 @@ import AdminRoutes from "./AdminRoutes";
 import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
 import AssignedParcels from "../pages/Dashboard/AssignedParcels/AssignedParcels";
 import RiderRoutes from "./RiderRoutes";
+import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,14 @@ const router = createBrowserRouter([
         element: (
           <RiderRoutes>
             <AssignedParcels></AssignedParcels>
+          </RiderRoutes>
+        ),
+      },
+      {
+        path: "completed-deliveries",
+        element: (
+          <RiderRoutes>
+            <CompletedDeliveries></CompletedDeliveries>
           </RiderRoutes>
         ),
       },

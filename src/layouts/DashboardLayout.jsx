@@ -6,6 +6,7 @@ import useRole from "../hooks/useRole";
 import useAuth from "../hooks/useAuth";
 import { VscPersonAdd } from "react-icons/vsc";
 import { GrTask } from "react-icons/gr";
+import { SiGoogletasks } from "react-icons/si";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -114,6 +115,19 @@ const DashboardLayout = () => {
 
                     <span className="is-drawer-close:hidden">
                       Assigned Parcels
+                    </span>
+                  </NavLink>
+                </li>{" "}
+                <li>
+                  <NavLink
+                    to={"/dashboard/completed-deliveries"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Completed Deliveries"
+                  >
+                    <SiGoogletasks size={18} />
+
+                    <span className="is-drawer-close:hidden">
+                      Completed Deliveries
                     </span>
                   </NavLink>
                 </li>
