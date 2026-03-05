@@ -21,6 +21,7 @@ import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
 import AssignedParcels from "../pages/Dashboard/AssignedParcels/AssignedParcels";
 import RiderRoutes from "./RiderRoutes";
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import TrackParcel from "../pages/TrackParcel/TrackParcel";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         loader: async () => {
           return fetch("warehouses.json").then((res) => res.json());
         },
+      },
+      {
+        path: "track-parcel/:id",
+        Component: TrackParcel,
       },
     ],
   },

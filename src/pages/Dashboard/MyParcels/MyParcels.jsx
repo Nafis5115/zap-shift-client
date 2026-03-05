@@ -53,9 +53,12 @@ const MyParcels = () => {
                 <td>{parcel.deliveryStatus}</td>
                 <td>
                   <div className="flex gap-4">
-                    <button className="btn btn-info text-black">View</button>
-                    <button className="btn btn-secondary">Update</button>
-                    <button className="btn btn-error">Delete</button>
+                    <Link
+                      to={`/track-parcel/${parcel.trackingId}`}
+                      className="btn btn-info text-black"
+                    >
+                      Track Parcel
+                    </Link>
                   </div>
                 </td>
               </tr>
